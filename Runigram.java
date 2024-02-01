@@ -176,7 +176,11 @@ public class Runigram {
 	 */
 	public static Color blend(Color c1, Color c2, double alpha) {
 		//// Replace the following statement with your code
-		return null;
+		int r = (int)(alpha * c1.getRed() + (1 - alpha) * c2.getRed());
+		int g = (int)(alpha * c1.getGreen() + (1 - alpha) * c2.getGreen());
+		int b = (int)(alpha * c1.getBlue() + (1 - alpha) * c2.getBlue());
+		Color Blend = new Color(r, g, b);
+		return Blend;
 	}
 	
 	/**
@@ -187,7 +191,16 @@ public class Runigram {
 	 */
 	public static Color[][] blend(Color[][] image1, Color[][] image2, double alpha) {
 		//// Replace the following statement with your code
-		return null;
+		int h = image1.length;
+		int w = image1[0].length;
+		Color[][] Blendd = new Color[h][w];
+		// calls blend() to set each blended pixel to the correct color
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j < w; j++) {
+				Blendd[i][j] = blend(image1[i][j], image2[i][j], alpha);
+			}
+		}
+		return Blendd;
 	}
 
 	/**
@@ -198,6 +211,16 @@ public class Runigram {
 	 */
 	public static void morph(Color[][] source, Color[][] target, int n) {
 		//// Replace this comment with your code
+		int h = source.length;
+		int w = source[0].length;
+		Color[][] Scal = scaled(target, w, h);
+		double alpha = 0;
+		Color[][] Morph = new Color[h][w];
+		for (int i = 0; i <= n; i++) {
+			alpha = (double)((n - i) / n);
+			Morph = blend(source, Scal, alpha);
+			display(Morph);
+		}
 	}
 	
 	/** Creates a canvas for the given image. */
