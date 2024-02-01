@@ -19,9 +19,20 @@ public class Runigram {
 
 		// Tests the horizontal flipping of an image:
 		imageOut = flippedHorizontally(tinypic);
-		System.out.println();
+		System.out.println("------------------------------------------------------------------------------------");
+		print(imageOut);
+
+		imageOut = flippedVertically(tinypic);
+		System.out.println("------------------------------------------------------------------------------------");
+		print(imageOut);
+
+		imageOut = grayScaled(tinypic);
+		System.out.println("------------------------------------------------------------------------------------");
 		print(imageOut);
 		
+		imageOut = scaled(tinypic, 3, 5);
+		System.out.println("------------------------------------------------------------------------------------");
+		print(imageOut);
 		//// Write here whatever code you need in order to test your work.
 		//// You can reuse / overide the contents of the imageOut array.
 	}
@@ -42,7 +53,18 @@ public class Runigram {
 		// creates from the 3 colors a new Color object, and 
 		// makes pixel (i,j) refer to that object.
 		//// Replace the following statement with your code.
-		return null;
+		int r = 0;
+		int g = 0;
+		int b = 0;
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				r = in.readInt();
+				g = in.readInt();
+				b = in.readInt();
+				image[i][j] = new Color(r, g, b);
+			}
+		}
+		return image;
 	}
 
     // Prints the RGB values of a given color.
@@ -61,6 +83,14 @@ public class Runigram {
 	// we can apply the function and then use this function to print the resulting image.
 	private static void print(Color[][] image) {
 		//// Replace this comment with your code
+		int h = image.length;
+		int w = image[0].length;
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j < w; j++) {
+				print(image[i][j]);
+			}
+			System.out.println();
+		}
 	}
 	
 	/**
@@ -68,7 +98,15 @@ public class Runigram {
 	 */
 	public static Color[][] flippedHorizontally(Color[][] image) {
 		//// Replace the following statement with your code
-		return null;
+		int h = image.length;
+		int w = image[0].length;
+		Color[][] HorizontalFlipped = new Color[h][w];
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j <  w; j++) {
+				HorizontalFlipped[i][j] = image[i][w - 1 - j];
+			}
+		}	
+		return HorizontalFlipped;
 	}
 	
 	/**
@@ -76,7 +114,15 @@ public class Runigram {
 	 */
 	public static Color[][] flippedVertically(Color[][] image){
 		//// Replace the following statement with your code
-		return null;
+		int h = image.length;
+		int w = image[0].length;
+		Color[][] VerticalFlipped = new Color[h][w];
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j <  w; j++) {
+				VerticalFlipped[i][j] = image[h- 1 - i][j];
+			}
+		}	
+		return VerticalFlipped;
 	}
 	
 	// Computes the luminance of the RGB values of the given pixel, using the formula 
@@ -84,7 +130,9 @@ public class Runigram {
 	// the three values r = lum, g = lum, b = lum.
 	public static Color luminance(Color pixel) {
 		//// Replace the following statement with your code
-		return null;
+		int lum = (int) (0.299 * pixel.getRed() + 0.587 * pixel.getGreen() + 0.114 * pixel.getBlue());
+		Color LUM = new Color(lum, lum, lum);
+		return LUM;
 	}
 	
 	/**
@@ -92,7 +140,15 @@ public class Runigram {
 	 */
 	public static Color[][] grayScaled(Color[][] image) {
 		//// Replace the following statement with your code
-		return null;
+		int h = image.length;
+		int w = image[0].length;
+		Color[][] Gray = new Color[h][w];
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j <  w; j++) {
+				Gray[i][j] = luminance(image[i][j]);
+			}
+		}	
+		return Gray;
 	}	
 	
 	/**
@@ -101,7 +157,15 @@ public class Runigram {
 	 */
 	public static Color[][] scaled(Color[][] image, int width, int height) {
 		//// Replace the following statement with your code
-		return null;
+		int h = image.length;
+		int w = image[0].length;
+		Color[][] Scal = new Color[height][width];
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				Scal[i][j] = image[(int)(i * ((double)h / (double)height))][(int)(j * ((double)w / (double)width))];
+			}
+		}
+		return Scal;
 	}
 	
 	/**
